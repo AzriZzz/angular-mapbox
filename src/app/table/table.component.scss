@@ -1,0 +1,21 @@
+
+table {
+  width: 100%;
+}
+
+.table-filter {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+mat-icon {
+  cursor: pointer;
+}
+
+.icon_location{
+  color: green;
+}
+.icon_delete{
+  color: red;
+}

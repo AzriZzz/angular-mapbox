@@ -1,0 +1,24 @@
+<form [formGroup]="restaurantForm" (ngSubmit)="onSubmit()">
+  <div class="form-header">
+    <mat-form-field floatLabel="fixed" appearance="outline">
+      <mat-label>Restaurant Name</mat-label>
+      <input matInput formControlName="restaurantName" />
+    </mat-form-field>
+  </div>
+
+  <div class="form-body">
+    <mat-form-field floatLabel="fixed" appearance="outline">
+      <mat-label>Latitude</mat-label>
+      <input matInput formControlName="latitude" />
+    </mat-form-field>
+    <mat-form-field floatLabel="fixed" appearance="outline">
+      <mat-label>Longitude</mat-label>
+      <input matInput formControlName="longitude" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+  </div>
+</form>
+
+<div class="table">
+  <app-table [data]="data$"></app-table>
+</div>

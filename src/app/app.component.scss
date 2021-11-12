@@ -6,7 +6,7 @@ section {
     margin-top: 50px;
   }
 
-  .form {
+  .container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
@@ -14,28 +14,4 @@ section {
     margin-top: 50px;
     margin: 50px auto 0 auto;
   }
-
-  .form-header {
-    mat-form-field {
-      width: 100%;
-    }
-  }
-
-  .form-body {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-
-    justify-content: space-between;
-
-    button {
-      flex-grow: 1;
-      height: 52px;
-      margin-top: 3px;
-    }
-  }
-}
-
-.green-snackbar {
-  background: #2196F3;
 }

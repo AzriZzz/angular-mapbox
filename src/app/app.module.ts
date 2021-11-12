@@ -9,9 +9,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { TableComponent } from './table/table.component';
+import { MatIconModule } from '@angular/material/icon';
+import { FormComponent } from './form/form.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TableComponent, FormComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -20,7 +25,10 @@ import { MatTableModule } from '@angular/material/table';
     ReactiveFormsModule,
     MatGridListModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

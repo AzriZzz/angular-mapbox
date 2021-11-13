@@ -13,10 +13,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { TableComponent } from './table/table.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FormComponent } from './form/form.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MessageComponent } from './modal/message/message.component';
 
 @NgModule({
-  declarations: [AppComponent, TableComponent, FormComponent],
+  declarations: [AppComponent, TableComponent, FormComponent, MessageComponent],
+  entryComponents: [MessageComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -28,7 +30,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

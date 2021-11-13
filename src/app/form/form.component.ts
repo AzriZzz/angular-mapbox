@@ -29,6 +29,7 @@ export class FormComponent {
   ) {}
   
   async onSubmit(): Promise<void> {
+    this.restaurantService.getList();
     const snackbar = await this.restaurantService.validateForm(
       this.restaurantForm.value
     );

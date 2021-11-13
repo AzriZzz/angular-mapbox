@@ -1,3 +1,4 @@
+import { MessageComponent } from './../modal/message/message.component';
 import { Observable } from 'rxjs';
 import { RestaurantService } from './../services/restaurant.service';
 import {
@@ -15,6 +16,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { IRestaurant } from '../models/models';
 import { RESTAURANT_DATA, TABLE_COLUMN } from '../app.constant';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-table',
@@ -37,7 +39,7 @@ export class TableComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.data.subscribe((value) => {
@@ -62,8 +64,20 @@ export class TableComponent implements AfterViewInit, OnInit {
   }
 
   onDelete(element) {
-    console.log('delete :', element);
-    this.resData = this.resData.filter((el) => el.index !== element.index);
-    this.tableUpdate(this.resData);
+    const dialogData = {
+      data: {
+        name: element.name
+      }
+    }
+    let dialogRef = this.dialog.open(MessageComponent, dialogData);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'true') {
+        this.resData = this.resData.filter((el) => el.index !== element.index);
+        this.tableUpdate(this.resData);
+      } else {
+        return;
+      }
+    });
   }
 }

@@ -9,6 +9,7 @@ export class RestaurantService {
   constructor() {}
 
   getList() {
+    console.log(JSON.stringify(RESTAURANT_DATA));
     return RESTAURANT_DATA;
   }
 

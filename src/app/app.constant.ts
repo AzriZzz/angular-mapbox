@@ -46,7 +46,7 @@ export const RESTAURANT_DATA: IRestaurant[] = [
 ];
 
 export const TABLE_COLUMN = [
-  'index',
+  // 'index',
   'name',
   'latitude',
   'longitude',

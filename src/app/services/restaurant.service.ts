@@ -6,33 +6,28 @@ import { IRestaurant } from '../models/models';
   providedIn: 'root',
 })
 export class RestaurantService {
+  defaultData = RESTAURANT_DATA;
   constructor() {}
 
   getList() {
-    console.log(JSON.stringify(RESTAURANT_DATA));
-    return RESTAURANT_DATA;
+    return this.defaultData;
   }
 
-  validateForm({ restaurantName, latitude, longitude, type }) {
+  validateForm({ restaurantName, latitude, longitude }) {
     let result = {
       message: '',
       button: '',
       isSuccess: false,
     };
-    if (
-      restaurantName === '' ||
-      latitude === '' ||
-      longitude === ''
-    ) {
+    if (restaurantName === '' || latitude === '' || longitude === '') {
       result = {
         message: 'Fill the rest of the field!',
         button: 'Closed',
         isSuccess: false,
       };
     } else {
-      const randNum = this.getRandomInt(0, 1);
-      const type = RESTAURANT_TYPE[randNum];
-      const index = RESTAURANT_DATA[RESTAURANT_DATA.length - 1].index + 1;
+      const type = RESTAURANT_TYPE[this.getRandomInt(0, 2)];
+      const index = this.defaultData[this.defaultData.length - 1].index + 1;
       const restaurant: IRestaurant = {
         index,
         name: restaurantName,
@@ -41,7 +36,7 @@ export class RestaurantService {
         type,
       };
 
-      RESTAURANT_DATA.push(restaurant);
+      this.defaultData.push(restaurant);
 
       result = {
         message: 'Succesfully saved!',
@@ -51,6 +46,15 @@ export class RestaurantService {
     }
 
     return result;
+  }
+
+  updateList(datas) {
+    datas.forEach((element, index) => {
+      element.index = index + 1;
+    });
+    this.defaultData = datas;
+
+    return this.defaultData;
   }
 
   getRandomInt(min, max) {

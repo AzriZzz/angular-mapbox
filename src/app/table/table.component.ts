@@ -39,7 +39,11 @@ export class TableComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  constructor(private cd: ChangeDetectorRef, public dialog: MatDialog) {}
+  constructor(
+    private cd: ChangeDetectorRef,
+    private dialog: MatDialog,
+    private restaurantService: RestaurantService
+  ) {}
 
   ngOnInit() {
     this.data.subscribe((value) => {
@@ -66,15 +70,16 @@ export class TableComponent implements AfterViewInit, OnInit {
   onDelete(element) {
     const dialogData = {
       data: {
-        name: element.name
-      }
-    }
+        name: element.name,
+      },
+    };
     let dialogRef = this.dialog.open(MessageComponent, dialogData);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'true') {
         this.resData = this.resData.filter((el) => el.index !== element.index);
-        this.tableUpdate(this.resData);
+        const result = this.restaurantService.updateList(this.resData);
+        this.tableUpdate(result);
       } else {
         return;
       }

@@ -1,6 +1,6 @@
 import { RESTAURANT_DATA } from './../app.constant';
-import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { defaultForm } from '../app.constant';
@@ -14,11 +14,12 @@ import { RestaurantService } from '../services/restaurant.service';
 export class FormComponent {
 
   data$ = new BehaviorSubject(RESTAURANT_DATA);
-  
+  @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
+
   restaurantForm = this.formBuilder.group({
-    restaurantName: [''],
-    latitude: [''],
-    longitude: [''],
+    restaurantName: ['', [Validators.required]],
+    latitude: ['', [Validators.required, Validators.pattern("^[0-9]+(\.[0-9]{1,6})?$")]],
+    longitude: ['', [Validators.required, Validators.pattern("^[0-9]+(\.[0-9]{1,6})?$")]],
     type: [''],
   });
 
@@ -37,11 +38,12 @@ export class FormComponent {
     if (isSuccess) {
       this._snackBar.open(message, button);
       this.restaurantForm.reset(defaultForm);
+      this.formGroupDirective.resetForm();
     } else {
       this._snackBar.open(message, button);
     }
-
-    this.data$.next(RESTAURANT_DATA);
+    const result = this.restaurantService.getList();
+    this.data$.next(result);
   }
 
 

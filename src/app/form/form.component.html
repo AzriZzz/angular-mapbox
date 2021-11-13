@@ -15,7 +15,7 @@
       <mat-label>Longitude</mat-label>
       <input matInput formControlName="longitude" />
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Save</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!restaurantForm.valid">Save</button>
   </div>
 </form>
 

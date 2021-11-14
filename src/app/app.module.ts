@@ -1,3 +1,4 @@
+import { MapBoxComponent } from './map-box/map-box.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -17,7 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MessageComponent } from './modal/message/message.component';
 
 @NgModule({
-  declarations: [AppComponent, TableComponent, FormComponent, MessageComponent],
+  declarations: [AppComponent, TableComponent, FormComponent, MessageComponent, MapBoxComponent],
   entryComponents: [MessageComponent],
   imports: [
     BrowserModule,

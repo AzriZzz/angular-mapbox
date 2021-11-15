@@ -78,4 +78,11 @@ export class MapBoxComponent implements OnInit {
       })
     }))
   }
+
+  flyTo() {
+    console.log('geojson');
+    // this.map.flyTo({
+    //   center: data.geometry.coordinates
+    // })
+  }
 }

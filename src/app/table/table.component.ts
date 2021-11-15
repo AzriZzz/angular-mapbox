@@ -1,3 +1,4 @@
+import { MapBoxComponent } from './../map-box/map-box.component';
 import { MessageComponent } from './../modal/message/message.component';
 import { Observable } from 'rxjs';
 import { RestaurantService } from './../services/restaurant.service';

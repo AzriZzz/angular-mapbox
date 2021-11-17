@@ -11,13 +11,16 @@ import {
   ChangeDetectionStrategy,
   Input,
   ChangeDetectorRef,
+  Pipe,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { IRestaurant } from '../models/models';
-import { RESTAURANT_DATA, TABLE_COLUMN } from '../app.constant';
+import { TABLE_COLUMN } from '../app.constant';
 import { MatDialog } from '@angular/material/dialog';
+import { MapService } from '../services/map.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-table',
@@ -26,27 +29,36 @@ import { MatDialog } from '@angular/material/dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements AfterViewInit, OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @Input() data: Observable<any>;
+
   displayedColumns: string[] = TABLE_COLUMN;
   dataSource = new MatTableDataSource([]);
   resData: any;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @Input() data: Observable<any>;
-  _data;
+  _data: any;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+  message: any;
+  coordinates: number[] = [];
 
   constructor(
     private cd: ChangeDetectorRef,
     private dialog: MatDialog,
-    private restaurantService: RestaurantService
-  ) {}
+    private restaurantService: RestaurantService,
+    private mapService: MapService,
+    private _snackBar: MatSnackBar
+  ) {
+    this.mapService.currentCoordinate.subscribe(
+      (coordinates) => (this.coordinates = coordinates)
+    );
+  }
 
   ngOnInit() {
+    this.mapService.currentCoordinate.subscribe(
+      (coordinates) => (this.coordinates = coordinates)
+    );
+
     this.data.subscribe((value) => {
       this._data = value;
       this.cd.markForCheck();
@@ -54,6 +66,12 @@ export class TableComponent implements AfterViewInit, OnInit {
       this.tableUpdate(this._data);
     });
   }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -64,8 +82,9 @@ export class TableComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  focusLocation() {
-    console.log('focusLocation');
+  focusLocation(element) {
+    const coordinates = [element.longitude, element.latitude];
+    this.mapService.changeCoordinate(coordinates);
   }
 
   onDelete(element) {
@@ -81,6 +100,7 @@ export class TableComponent implements AfterViewInit, OnInit {
         this.resData = this.resData.filter((el) => el.index !== element.index);
         const result = this.restaurantService.updateList(this.resData);
         this.tableUpdate(result);
+        this._snackBar.open('Restaurant Deleted!', 'Close');
       } else {
         return;
       }

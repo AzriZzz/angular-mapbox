@@ -9,17 +9,22 @@ import { RestaurantService } from '../services/restaurant.service';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  styleUrls: ['./form.component.scss'],
 })
 export class FormComponent {
-
   data$ = new BehaviorSubject(RESTAURANT_DATA);
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
 
   restaurantForm = this.formBuilder.group({
     restaurantName: ['', [Validators.required]],
-    latitude: ['', [Validators.required, Validators.pattern("^[0-9]+(\.[0-9]{1,6})?$")]],
-    longitude: ['', [Validators.required, Validators.pattern("^[0-9]+(\.[0-9]{1,6})?$")]],
+    latitude: [
+      '',
+      [Validators.required, Validators.pattern('^[0-9]+(.[0-9]{1,20})?$')],
+    ],
+    longitude: [
+      '',
+      [Validators.required, Validators.pattern('^[0-9]+(.[0-9]{1,20})?$')],
+    ],
     type: [''],
   });
 
@@ -28,7 +33,7 @@ export class FormComponent {
     private _snackBar: MatSnackBar,
     private restaurantService: RestaurantService
   ) {}
-  
+
   async onSubmit(): Promise<void> {
     this.restaurantService.getList();
     const snackbar = await this.restaurantService.validateForm(
@@ -45,6 +50,4 @@ export class FormComponent {
     const result = this.restaurantService.getList();
     this.data$.next(result);
   }
-
-
 }

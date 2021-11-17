@@ -1,46 +1,46 @@
-import { IRestaurant } from "./models/models";
+import { IRestaurant } from './models/models';
 
 export const defaultForm = {
   restaurantName: '',
   latitude: '',
   longitude: '',
   type: '',
-}
+};
 
 export const RESTAURANT_DATA: IRestaurant[] = [
   {
     index: 1,
-    name: 'Langkawi Restaurant',
-    latitude: 1.0079,
-    longitude: 1.0079,
+    name: 'Jom Ikan Bakar langkawi',
+    latitude: 6.3489485301484425,
+    longitude: 99.7315179873812,
     type: 'Fast Food',
   },
   {
     index: 2,
-    name: 'Kak Limah Sedap2',
-    latitude: 4.0026,
-    longitude: 4.0026,
+    name: 'Restoran Siti Fatimah',
+    latitude: 6.327272078510774,
+    longitude: 99.7826809088428,
     type: 'Casual Dining',
   },
   {
     index: 3,
-    name: 'Masak Lemak Cili Api',
-    latitude: 6.941,
-    longitude: 6.941,
+    name: 'Kedai Makan Che ta ayer tawar perak',
+    latitude: 4.346379036752815,
+    longitude: 100.78980212430058,
     type: 'Cafes',
   },
   {
     index: 4,
-    name: 'Fried Archiles',
-    latitude: 9.0122,
-    longitude: 9.0122,
+    name: 'Kedai Makan Kak Gee',
+    latitude: 4.197685407953846,
+    longitude: 101.26361542539308,
     type: 'Cafes',
   },
   {
     index: 5,
-    name: 'Shawarma Restaurant',
-    latitude: 10.811,
-    longitude: 10.811,
+    name: 'Nasi Kak Wok Cyberjaya - KB Corner',
+    latitude: 2.9260042191330005, 
+    longitude: 101.65676709141529,
     type: 'Casual Dining',
   },
 ];
@@ -54,4 +54,4 @@ export const TABLE_COLUMN = [
   'action',
 ];
 
-export const RESTAURANT_TYPE = ['Fast Food', 'Casual Dining','Cafes']
+export const RESTAURANT_TYPE = ['Fast Food', 'Casual Dining', 'Cafes'];
